@@ -170,67 +170,7 @@
                 </div>
                 <div id="collapseTwo" class="collapse show" data-parent="#accordion">
                     <div class="card-body p-4">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <h4 class="mb-3">
-                                    <i class="fa fa-check"> </i>
-                                    আপনি ঢাকা সিটির ভীতরে হলেঃ-
-                                </h4>
-
-                                <div class="col-sm-12">
-                                    <p>
-                                        <i class="fa  fa-arrow-circle-right "> </i>
-                                        ক্যাশ অন ডেলিভারি/হ্যান্ড টু হ্যান্ড ডেলিভারি।
-                                    </p>
-                                    <p>
-                                        <i class="fa  fa-arrow-circle-right "> </i>
-                                        ডেলিভারি চার্জ
-                                        ৬০
-                                        টাকা।
-                                    </p>
-                                    <p>
-                                        <i class="fa  fa-arrow-circle-right "> </i>
-                                        পণ্যের টাকা ডেলিভারি ম্যানের কাছে প্রদান করবেন।
-                                    </p>
-                                    <p>
-                                        <i class="fa  fa-arrow-circle-right "> </i>
-                                        অর্ডার কনফার্ম করার ৪৮ ঘণ্টার ভিতর ডেলিভারি পাবেন।
-                                    </p>
-                                    <p>
-                                        <i class="fa  fa-arrow-circle-right "> </i>
-                                        বিঃদ্রঃ- ছবি এবং বর্ণনার সাথে পণ্যের মিল থাকা সত্যেও আপনি পণ্য গ্রহন করতে না চাইলে  ডেলিভারি চার্জ
-                                        ৬০
-                                        টাকা ডেলিভারি ম্যানকে প্রদান করতে বাধ্য থাকিবেন।
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <h4 class="mb-3">
-                                    <i class="fa fa-check"> </i>
-                                    আপনি ঢাকা সিটির বাহীরে হলেঃ-
-                                </h4>
-
-                                <div class="col-sm-12">
-                                    <p>
-                                        <i class="fa  fa-arrow-circle-right "> </i>
-                                        কন্ডিশন বুকিং অন কুরিয়ার সার্ভিস (জননী কুরিয়ার অথবা এস এ পরিবহন কুরিয়ার সার্ভিস) এ নিতে হবে।
-                                    </p>
-                                    <p>
-                                        <i class="fa  fa-arrow-circle-right "> </i>
-                                        কুরিয়ার সার্ভিস চার্জ ১০০ টাকা বিকাশে অগ্রিম প্রদান করতে হবে।
-                                    </p>
-
-                                    <p>
-                                        <i class="fa  fa-arrow-circle-right "> </i>
-                                        কুরিয়ার চার্জ ১০০ টাকা বিকাশ করার পর ৪৮ ঘন্টার ভিতর কুরিয়ার হতে পণ্য গ্রহন করতে  হবে এবং পণ্যের টাকা কুরিয়ার অফিসে প্রদান করতে হবে।
-                                    </p>
-                                    <p>
-                                        <i class="fa  fa-arrow-circle-right "> </i>
-                                        বিঃদ্রঃ- ছবি এবং বর্ণনার সাথে পণ্যের মিল থাকা সত্যেও আপনি পণ্য গ্রহন করতে না চাইলে  কুরিয়ার চার্জ ১০০ টাকা কুরিয়ার অফিসে প্রদান করে পণ্য আমাদের ঠিকানায় রিটার্ন করবেন। আমরা প্রয়োজনীয় ব্যবস্থা নিব।
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                        {!! setting('delivery_text') !!}
                     </div>
                 </div>
             </div>

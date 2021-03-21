@@ -75,6 +75,7 @@
                             <li class="nav-item rounded-0"><a class="nav-link active" data-toggle="tab" href="#item-general">General</a></li>
                             <li class="nav-item rounded-0"><a class="nav-link" data-toggle="tab" href="#item-1">Company</a></li>
                             <li class="nav-item rounded-0"><a class="nav-link" data-toggle="tab" href="#item-2">Social</a></li>
+                            <li class="nav-item rounded-0"><a class="nav-link" data-toggle="tab" href="#item-3">Delivery</a></li>
                             <li class="nav-item rounded-0"><a class="nav-link" data-toggle="tab" href="#item-others">Others</a></li>
                         </ul>
                     </div>
@@ -88,6 +89,7 @@
                                         @include('admin.settings.general')
                                         @include('admin.settings.company')
                                         @include('admin.settings.social')
+                                        @include('admin.settings.delivery')
                                         @include('admin.settings.others')
                                     </div>
                                 </form>
@@ -110,7 +112,7 @@
 
         $('#add-courier').click(function(e) {
             e.preventDefault();
-            
+
             var id = 1, len = 0;
             if(len = ($(this).parents('.form-group').children('.input-group').length >= 1)) {
                 id += len;
