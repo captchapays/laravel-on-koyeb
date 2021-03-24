@@ -37,7 +37,7 @@ class OrderController extends Controller
             ->addColumn('actions', function (Order $order) {
                 return '<div class="d-flex justify-content-center">
                     <a href="'.route('admin.orders.show', $order).'" class="btn btn-sm btn-primary px-2 d-block">View</a>
-                    <a href="'.route('admin.orders.edit', $order).'" class="btn btn-sm btn-success px-2 d-block">View</a>
+                    <a href="'.route('admin.orders.edit', $order).'" class="btn btn-sm btn-success px-2 d-block">Edit</a>
                     <a href="'.route('admin.orders.destroy', $order).'" data-action="delete" class="btn btn-sm btn-danger px-2 d-block">Delete</a>
                 </div>';
             })

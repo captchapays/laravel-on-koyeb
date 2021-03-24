@@ -146,24 +146,27 @@
                             </div>
                         </div>
                     </div><!-- .product__info / end -->
-                    <div class="block-features__list flex-column">
-                        @php $services = setting('services') @endphp
-                        @foreach(config('services.services', []) as $num => $icon)
-                        <div class="block-features__item">
-                            <div class="block-features__icon">
-                                <svg width="48px" height="48px">
-                                    <use xlink:href="{{ asset($icon) }}"></use>
-                                </svg>
-                            </div>
-                            <div class="block-features__content">
-                                <div class="block-features__title">{{ $services->$num->title }}</div>
-                                <div class="block-features__subtitle">{{ $services->$num->detail }}</div>
-                            </div>
-                        </div>
-                            @if(!$loop->last)
-                                <div class="block-features__divider"></div>
+                    <div>
+                        <div class="block-features__list flex-column d-block">
+                            @if($services = setting('services'))
+                                @foreach(config('services.services', []) as $num => $icon)
+                                    <div class="block-features__item">
+                                        <div class="block-features__icon">
+                                            <svg width="48px" height="48px">
+                                                <use xlink:href="{{ asset($icon) }}"></use>
+                                            </svg>
+                                        </div>
+                                        <div class="block-features__content">
+                                            <div class="block-features__title">{{ $services->$num->title }}</div>
+                                            <div class="block-features__subtitle">{{ $services->$num->detail }}</div>
+                                        </div>
+                                    </div>
+                                    @if(!$loop->last)
+                                        <div class="block-features__divider"></div>
+                                    @endif
+                                @endforeach
                             @endif
-                        @endforeach
+                        </div>
                     </div>
                 </div>
             </div>

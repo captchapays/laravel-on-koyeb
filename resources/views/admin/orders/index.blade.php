@@ -131,7 +131,11 @@
                     input.classList.add('form-control', 'border-primary');
                     $(input).appendTo($(th))
                         .on('change', function () {
-                            column.search($(this).val(), false, false, true).draw();
+                            if (i) {
+                                column.search($(this).val(), false, false, true).draw();
+                            } else {
+                                column.search('^'+ (this.value.length ? this.value : '.*') +'$', true, false).draw();
+                            }
                         });
                 }
             });
