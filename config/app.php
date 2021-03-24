@@ -16,9 +16,11 @@ return [
     'name' => env('APP_NAME', 'Laravel'),
 
     'orders' => [
+        'PENDING',
         'PROCESSING',
         'SHIPPING',
         'COMPLETED',
+        'CANCELLED',
         'RETURNED',
     ],
 

@@ -37,7 +37,7 @@
           </li>
 
           <li>
-            <a class="nav-link menu-title link-nav {{ request()->is('admin/orders*') ? 'active' : '' }}" href="{{route('admin.orders.index')}}">
+            <a class="nav-link menu-title link-nav {{ request()->is('admin/orders*') ? 'active' : '' }}" href="{{route('admin.orders.index', ['status' => strtolower(data_get(config('app.orders', []), 0))])}}">
               <i data-feather="check"> </i>
               <span>Orders</span>
             </a>
