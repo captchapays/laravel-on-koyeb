@@ -70,7 +70,7 @@ class ProductController extends Controller
     {
         return $this->view(compact('product'), '', [
             'categories' => Category::nested(),
-            'brands' => Brand::all(),
+            'brands' => Brand::cached(),
         ]);
     }
 
@@ -85,13 +85,13 @@ class ProductController extends Controller
     {
         $data = $request->validationData();
         $product->update($data);
-        
+
         // if ($product->getChanges()) {
         //     session()->flash('success', 'Product Updated');
         // } else {
         //     session()->flash('success', 'No Field Was Changed');
         // }
-    
+
         event(new ProductUpdated($product, $data));
         return redirect()->action([self::class, 'index'])->with('success', 'Product Has Been Updated.');
     }

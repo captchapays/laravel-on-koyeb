@@ -26,7 +26,9 @@ if (! function_exists('pageRoutes')) {
 
 if (! function_exists('setting')) {
     function setting($name) {
-        return optional(Setting::whereName($name)->first())->value;
+        return cache()->rememberForever('settings:'.$name, function () use ($name) {
+            return optional(Setting::whereName($name)->first())->value;
+        });
     }
 }
 

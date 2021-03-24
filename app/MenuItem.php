@@ -23,5 +23,18 @@ class MenuItem extends Model
             $builder->orderBy('order');
             // $builder->latest('order'); // Not Working
         });
+
+        static::saved(function ($item) {
+            cache()->put('menus:'.$item->menu->slug, $item->menu);
+        });
+
+        static::deleting(function ($item) {
+            cache()->forget('menus:'.$item->menu->slug);
+        });
+    }
+
+    public function menu()
+    {
+        return $this->belongsTo(Menu::class);
     }
 }

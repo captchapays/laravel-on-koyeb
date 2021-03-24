@@ -23,9 +23,7 @@ class SettingController extends Controller
     public function __invoke(SettingRequest $request, SettingRepository $settingRepo)
     {
         if ($request->isMethod('GET')) {
-            return $this->view(Cache::get('settings', function () {
-                return Setting::array();
-            }));
+            return $this->view(Setting::array());
         }
 
         $data = $request->validated();

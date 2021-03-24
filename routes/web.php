@@ -4,15 +4,6 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Session;
 
-//Language Change
-Route::get('lang/{locale}', function ($locale) {
-    if (! in_array($locale, ['en', 'de', 'es','fr','pt', 'cn', 'ae'])) {
-        abort(400);
-    }
-    Session::put('locale', $locale);
-    return redirect()->back();
-})->name('lang');
-
 Route::view('auth', 'auth')->middleware('guest:user')->name('auth');
 Route::view('check', 'check');
 
@@ -41,11 +32,17 @@ Route::get('/scout-import', function () {
     Artisan::call('scout:import', ["model" => "App\Product"]);
 });
 
-Route::get('/clear-cache', function() {
+Route::get('/do-cache', function() {
     Artisan::call('config:cache');
-    Artisan::call('cache:clear');
+    Artisan::call('view:cache');
+    Artisan::call('optimize');
+    return "Config & Views are Cached";
+})->name('do.cache');
+
+Route::get('/clear-cache', function() {
     Artisan::call('config:clear');
+    Artisan::call('cache:clear');
     Artisan::call('view:clear');
-    Artisan::call('route:clear');
-    return "Cache is cleared";
+    Artisan::call('optimize');
+    return "Cache is Cleared";
 })->name('clear.cache');
