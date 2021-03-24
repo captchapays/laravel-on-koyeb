@@ -30,6 +30,13 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'services' => [
+        'one' => 'strokya/images/sprite.svg#fi-free-delivery-48',
+        'two' => 'strokya/images/sprite.svg#fi-24-hours-48',
+        'three' => 'strokya/images/sprite.svg#fi-payment-security-48',
+        'four' => 'strokya/images/sprite.svg#fi-tag-48',
+    ],
+
     'shipping' => [
         'Inside Dhaka' => 60,
         'Outside Dhaka' => 100,

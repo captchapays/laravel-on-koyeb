@@ -47,6 +47,10 @@ class SettingRequest extends FormRequest
             'delivery_charge.inside_dhaka' => 'sometimes|integer',
             'delivery_charge.outside_dhaka' => 'sometimes|integer',
             'delivery_text' => 'sometimes',
+
+            'services' => 'sometimes|nullable|array',
+            'services.*' => 'sometimes|nullable|array',
+            'services.*.*' => 'sometimes|nullable|string|max:255',
         ];
     }
 }

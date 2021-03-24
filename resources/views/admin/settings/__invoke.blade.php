@@ -74,8 +74,9 @@
                         <ul class="nav nav-tabs list-group" role="tablist">
                             <li class="nav-item rounded-0"><a class="nav-link active" data-toggle="tab" href="#item-general">General</a></li>
                             <li class="nav-item rounded-0"><a class="nav-link" data-toggle="tab" href="#item-1">Company</a></li>
-                            <li class="nav-item rounded-0"><a class="nav-link" data-toggle="tab" href="#item-2">Social</a></li>
                             <li class="nav-item rounded-0"><a class="nav-link" data-toggle="tab" href="#item-3">Delivery</a></li>
+                            <li class="nav-item rounded-0"><a class="nav-link" data-toggle="tab" href="#item-services">Services</a></li>
+                            <li class="nav-item rounded-0"><a class="nav-link" data-toggle="tab" href="#item-2">Social</a></li>
                             <li class="nav-item rounded-0"><a class="nav-link" data-toggle="tab" href="#item-others">Others</a></li>
                         </ul>
                     </div>
@@ -88,8 +89,9 @@
                                         @method('PATCH')
                                         @include('admin.settings.general')
                                         @include('admin.settings.company')
-                                        @include('admin.settings.social')
                                         @include('admin.settings.delivery')
+                                        @include('admin.settings.services')
+                                        @include('admin.settings.social')
                                         @include('admin.settings.others')
                                     </div>
                                 </form>
