@@ -32,7 +32,7 @@ class OrderController extends Controller
                 return "<div class='text-nowrap'>" . $row->created_at->format('d-M-Y') . "<br>" . $row->created_at->format('h:i A') . "</div>";
             })
             ->editColumn('price', function ($row) {
-                return $row->data->subtotal + $row->data->subtotal;
+                return $row->data->subtotal + $row->data->shipping_cost;
             })
             ->addColumn('actions', function (Order $order) {
                 return '<div class="d-flex justify-content-center">
@@ -41,9 +41,9 @@ class OrderController extends Controller
                     <a href="'.route('admin.orders.destroy', $order).'" data-action="delete" class="btn btn-sm btn-danger px-2 d-block">Delete</a>
                 </div>';
             })
-            ->filterColumn('created_at', function($query, $keyword) {
-                $query->where('created_at', 'like', "%" . Carbon::createFromFormat('d-M-Y', $keyword)->format('Y-m-d') ."%");
-            })
+//            ->filterColumn('created_at', function($query, $keyword) {
+//                $query->where('created_at', 'like', "%" . Carbon::createFromFormat('d-M-Y', $keyword)->format('Y-m-d') ."%");
+//            })
             ->rawColumns(['created_at', 'actions'])
             ->make(true);
     }

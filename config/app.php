@@ -19,7 +19,7 @@ return [
         'PENDING',
         'PROCESSING',
         'SHIPPING',
-        'COMPLETED',
+        'DELIVERED',
         'CANCELLED',
         'RETURNED',
     ],
@@ -76,7 +76,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Dhaka',
 
     /*
     |--------------------------------------------------------------------------

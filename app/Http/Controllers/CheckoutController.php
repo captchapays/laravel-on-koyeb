@@ -67,7 +67,7 @@ class CheckoutController extends Controller
                 // Additional Data
                 'data' => json_encode([
                     'shipping_area' => $data['shipping'],
-                    'shipping_cost' => config('services.shipping.'.$data['shipping']),
+                    'shipping_cost' => setting('delivery_charge')->{$data['shipping'] == 'Inside Dhaka' ? 'inside_dhaka' : 'outside_dhaka'} ?? config('services.shipping.'.$data['shipping']),
                     'subtotal'      => is_array($products) ? array_reduce($products, function ($sum, $product) {
                         return $sum += $product['total'];
                     }) : $products->sum('total'),
