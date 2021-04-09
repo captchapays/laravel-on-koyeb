@@ -32,7 +32,8 @@
             }
         }
         .product__content {
-            grid-template-columns: [gallery] calc(30% - 30px) [info] calc(40% - 40px) [sidebar] calc(30% - 10px);
+            grid-template-columns: [gallery] calc(40% - 30px) [info] calc(40% - 35px) [sidebar] calc(25% - 10px);
+            grid-column-gap: 10px;
         }
 
         img {
@@ -60,7 +61,7 @@
                 <div class="product__content" data-id="{{ $product->id }}" data-max="{{ $product->should_track ? $product->stock_count : -1 }}">
                     <div class="xzoom-container">
                         <img class="xzoom" id="xzoom-default" src="{{ asset($product->base_image->src) }}" xoriginal="{{ asset($product->base_image->src) }}" />
-                        <div class="xzoom-thumbs mt-2">
+                        <div class="xzoom-thumbs d-flex mt-2">
                             <a href="{{ asset($product->base_image->src) }}"><img class="xzoom-gallery" width="80" src="{{ asset($product->base_image->src) }}"  xpreview="{{ asset($product->base_image->src) }}"></a>
                             @foreach($product->additional_images as $image)
                                 <a href="{{ asset($image->src) }}">
