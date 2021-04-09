@@ -25,7 +25,7 @@ class MenuItem extends Model
         });
 
         static::saved(function ($item) {
-            cache()->put('menus:'.$item->menu->slug, $item->menu);
+            cache()->forget('menus:'.$item->menu->slug);
         });
 
         static::deleting(function ($item) {

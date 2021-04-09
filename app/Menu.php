@@ -15,8 +15,7 @@ class Menu extends Model
     public static function booted()
     {
         static::saved(function ($menu) {
-            $menu->load('menuItems');
-            cache()->put('menus:'.$menu->slug, $menu);
+            cache()->forget('menus:'.$menu->slug);
         });
 
         static::deleting(function ($menu) {
