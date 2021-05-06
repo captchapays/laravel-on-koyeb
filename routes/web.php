@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Session;
 
 Route::view('auth', 'auth')->middleware('guest:user')->name('auth');
-Route::view('check', 'check');
 
 Route::get('/', 'HomeController')->name('/');
 Route::get('/sections/{section}/products', 'HomeSectionProductController')->name('home-sections.products');
@@ -32,17 +31,11 @@ Route::get('/scout-import', function () {
     Artisan::call('scout:import', ["model" => "App\Product"]);
 });
 
-Route::get('/do-cache', function() {
-    Artisan::call('config:cache');
-    Artisan::call('view:cache');
-    Artisan::call('optimize');
-    return "Config & Views are Cached";
-})->name('do.cache');
-
 Route::get('/clear-cache', function() {
-    Artisan::call('config:clear');
+    Artisan::call('config:cache');
     Artisan::call('cache:clear');
+    Artisan::call('config:clear');
     Artisan::call('view:clear');
-    Artisan::call('optimize');
-    return "Cache is Cleared";
+    Artisan::call('route:clear');
+    return "Cache is cleared";
 })->name('clear.cache');

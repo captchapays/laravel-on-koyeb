@@ -33,7 +33,7 @@
                                     <x-error field="phone" />
                                 </div>
                             </div>
-                            <div class="form-row">
+                            <div class="form-row" style="display: none;">
                                 <div class="form-group col-md-12">
                                     <x-input type="email" name="email" placeholder="Email" :value="$user->email" />
                                     <x-error field="email" />
@@ -103,7 +103,7 @@
                                     <label class="form-check-label" for="checkout-terms">I agree to the <span class="text-info" target="_blank" href="javascript:void(0);">terms and conditions</span>*</label>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-xl btn-block">Place Order</button>
+                            <button type="submit" class="btn btn-danger btn-xl btn-block">Place Order</button>
                         </div>
                     </div>
                 </div>

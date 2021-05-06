@@ -38,7 +38,7 @@
                 height: 36px;
                 border-bottom: 1px solid #dedede;
                 background: #f7f7f7;
-                color: #c9151b;
+                color: #444;
                 padding: .35rem .75rem;
             }
             .mobile-header__search {
@@ -87,21 +87,11 @@
             display: block;
             width: 100%;
         }
-        .product-card__addtocart,
-        .product__addtocart {
-            background-color: #0083C4 !important;
-            border-color: #0083C4 !important;
-            color: #fff !important;
-        }
         .product-card__ordernow,
         .product__ordernow {
-            background-color: #3d464d !important;
-            border-color: #3d464d !important;
+            background-color: #c9151b !important;
+            border-color: #c9151b !important;
             color: #fff !important;
-        }
-        .btn-primary:hover {
-            background-color: #6c95b5 !important;
-            border-color: #6c95b5 !important;
         }
         .aa-input-container {
             width: 100%;
@@ -265,7 +255,7 @@
                                 <a href="${v.detail}">${v.name}</a>
                             </div>
                             <div class="dropcart__product-meta">
-                                <span class="dropcart__product-quantity">${v.quantity}</span> x <span class="dropcart__product-price">TK ${v.price}</span>
+                                <span class="dropcart__product-quantity">${v.quantity}</span> x <span class="dropcart__product-price">৳ ${v.price}</span>
                             </div>
                         </div>
                         <button type="button" class="dropcart__product-remove btn btn-light btn-sm btn-svg-icon" remove-cart-item data-id="${v.id}">
@@ -295,7 +285,7 @@
                         <td class="cart-table__column cart-table__column--product">
                             <a href="${v.detail}" class="cart-table__product-name">${v.name}</a>
                         </td>
-                        <td class="cart-table__column cart-table__column--price" data-title="Price">TK ${v.price}</td>
+                        <td class="cart-table__column cart-table__column--price" data-title="Price">৳ ${v.price}</td>
                         <td class="cart-table__column cart-table__column--quantity" data-title="Quantity">
                             <div class="input-number">
                                 <input class="form-control input-number__input" type="number" min="1" value="${v.quantity}" `+(v.max != -1 ? 'max="'+v.max+'"' : '')+` readonly>
@@ -303,7 +293,7 @@
                                 <div class="input-number__sub"></div>
                             </div>
                         </td>
-                        <td class="cart-table__column cart-table__column--total" data-title="Total">TK ${Number(v.price) * Number(v.quantity)}</td>
+                        <td class="cart-table__column cart-table__column--total" data-title="Total">৳ ${Number(v.price) * Number(v.quantity)}</td>
                         <td class="cart-table__column cart-table__column--remove">
                             <button type="button" class="btn btn-light btn-sm btn-svg-icon" remove-cart-item data-id="${v.id}">
                                 <svg width="12px" height="12px">

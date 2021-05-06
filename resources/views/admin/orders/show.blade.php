@@ -9,8 +9,8 @@
 <style>
 @media print {
     html, body {
-    height:100vh;
-    margin: 0 !important;
+    height:100vh; 
+    margin: 0 !important; 
     padding: 0 !important;
     overflow: hidden;
     }
@@ -61,7 +61,6 @@
                                         <div class="media-body m-l-20">
                                             <h4 class="media-heading">{{ $company->name }}</h4>
                                             <p>{{ $company->email }}<br><span class="digits">{{ $company->phone }}</span></p>
-                                            <div>{{ $order->address }}</div>
                                         </div>
                                     </div>
                                     <!-- End Info-->
@@ -86,6 +85,7 @@
                                     <div class="media-body m-l-20">
                                         <h4 class="media-heading">{{ $order->name }}</h4>
                                         <p><span class="digits">{{ $order->email }}</span><br>{{ $order->phone }}</p>
+                                        <div>{{ $order->address }}</div>
                                     </div>
                                 </div>
                             </div>
