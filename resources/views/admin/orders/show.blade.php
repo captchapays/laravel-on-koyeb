@@ -9,25 +9,31 @@
 <style>
 @media print {
     html, body {
-    height:100vh; 
-    margin: 0 !important; 
-    padding: 0 !important;
-    overflow: hidden;
+        height:100vh;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden;
     }
-
     .main-nav {
         display: none !important;
         width: 0 !important;
     }
-
     .print-edit-buttons,
     .footer {
         display: none !important;
     }
-
     .page-body {
+        font-size: 20px;
+        margin-top: 0 !important;
         margin-left: 0 !important;
         page-break-after: always;
+    }
+    .page-body p {
+        font-size: 16px !important;
+    }
+    .only-print {
+        display: block;
+        padding-top: 2rem;
     }
 }
 </style>
@@ -84,7 +90,10 @@
                                 <div class="media">
                                     <div class="media-body m-l-20">
                                         <h4 class="media-heading">{{ $order->name }}</h4>
-                                        <p><span class="digits">{{ $order->email }}</span><br>{{ $order->phone }}</p>
+                                        <div>
+                                            @if($order->email)<span class="digits">{{ $order->email }}</span><br>@endif
+                                            {{ $order->phone }}
+                                        </div>
                                         <div>{{ $order->address }}</div>
                                     </div>
                                 </div>
@@ -129,9 +138,18 @@
                                             <th colspan="4">Shipping</th>
                                             <th>{{ $order->data->shipping_cost }}</th>
                                         </tr>
+                                        @php($total = $order->data->shipping_cost + $order->data->subtotal)
+{{--                                        <tr>--}}
+{{--                                            <th colspan="4">Total</th>--}}
+{{--                                            <th>{{ $total }}</th>--}}
+{{--                                        </tr>--}}
                                         <tr>
-                                            <th colspan="4">Total</th>
-                                            <th>{{ $order->data->shipping_cost + $order->data->subtotal }}</th>
+                                            <th colspan="4">Discount</th>
+                                            <th>{{ $discount = $order->data->discount ?? 0 }}</th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="4">Payable</th>
+                                            <th>{{ $total - $discount }}</th>
                                         </tr>
                                     </tbody>
                                 </table>

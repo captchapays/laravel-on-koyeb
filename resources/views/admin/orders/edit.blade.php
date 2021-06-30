@@ -108,16 +108,21 @@
                                 <div class="card mb-0">
                                     <div class="card-body">
                                         <h3 class="card-title">Your Order</h3>
-                                        
-                                        <label for="status">Order Status</label>
-                                        <select name="status" id="status" class="form-control">
-                                            @foreach($statuses as $status)
-                                            <option value="{{ $status }}" {{ $status == $order->status ? 'selected' : '' }}>{{ $status }}</option>
-                                            @endforeach
-                                        </select>
 
                                         <table class="checkout__totals table table-borderless">
                                             <tbody class="checkout__totals-subtotals">
+                                                <tr>
+                                                    <th>
+                                                        <label for="status">Order Status</label>
+                                                    </th>
+                                                    <th>
+                                                        <select name="status" id="status" class="form-control">
+                                                            @foreach($statuses as $status)
+                                                                <option value="{{ $status }}" {{ $status == $order->status ? 'selected' : '' }}>{{ $status }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </th>
+                                                </tr>
                                                 <tr>
                                                     <th>Subtotal</th>
                                                     <td class="checkout-subtotal">{!!  theMoney($data->subtotal)  !!}</td>
@@ -131,6 +136,17 @@
                                                 <tr>
                                                     <th>Total</th>
                                                     <td>{!!  theMoney($data->shipping_cost + $data->subtotal)  !!}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Discount</th>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <input type="number" name="data[discount]" id="discount" class="form-control" value="{{ old('data.discount', $data->discount ?? 0) }}">
+                                                            <div class="input-group-append">
+                                                                <div class="input-group-text">TK</div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
                                                 </tr>
                                             </tfoot>
                                         </table>

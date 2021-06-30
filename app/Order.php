@@ -15,6 +15,11 @@ class Order extends Model
         return json_decode($products);
     }
 
+    public function setDataAttribute($data)
+    {
+        $this->attributes['data'] = json_encode(array_merge((array)$this->data, $data));
+    }
+
     public function getDataAttribute($data)
     {
         return json_decode($data);
