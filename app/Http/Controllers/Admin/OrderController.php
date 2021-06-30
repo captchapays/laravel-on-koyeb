@@ -64,6 +64,7 @@ class OrderController extends Controller
             'note' => 'nullable',
             'status' => 'required',
             'data.discount' => 'required|integer',
+            'data.advanced' => 'required|integer',
         ]);
 
         $order->update($data);

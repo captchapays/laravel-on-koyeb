@@ -125,29 +125,30 @@
                                                 </tr>
                                                 <tr>
                                                     <th>Subtotal</th>
-                                                    <td class="checkout-subtotal">{!!  theMoney($data->subtotal)  !!}</td>
+                                                    <td class="checkout-subtotal">{!! theMoney($data->subtotal) !!}</td>
                                                 </tr>
                                                 <tr>
                                                     <th>Shipping</th>
-                                                    <td class="shipping">{!!  theMoney($data->shipping_cost)  !!}</td>
+                                                    <td class="shipping">{!! theMoney($data->shipping_cost) !!}</td>
                                                 </tr>
                                             </tbody>
                                             <tfoot class="checkout__totals-footer">
-                                                <tr>
-                                                    <th>Total</th>
-                                                    <td>{!!  theMoney($data->shipping_cost + $data->subtotal)  !!}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Discount</th>
-                                                    <td>
-                                                        <div class="input-group">
-                                                            <input type="number" name="data[discount]" id="discount" class="form-control" value="{{ old('data.discount', $data->discount ?? 0) }}">
-                                                            <div class="input-group-append">
-                                                                <div class="input-group-text">TK</div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+{{--                                            <tr>--}}
+{{--                                                <th>Total</th>--}}
+{{--                                                <td>{!!  theMoney($data->shipping_cost + $data->subtotal)  !!}</td>--}}
+{{--                                            </tr>--}}
+                                            <tr>
+                                                <th>Advanced</th>
+                                                <td>
+                                                    <input style="height: auto; padding: 2px 8px;" type="text" name="data[advanced]" value="{!!  $data->advanced ?? 0  !!}" class="form-control">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Discount</th>
+                                                <td>
+                                                    <input style="height: auto; padding: 2px 8px;" type="text" name="data[discount]" value="{!!  $data->discount ?? 0  !!}" class="form-control">
+                                                </td>
+                                            </tr>
                                             </tfoot>
                                         </table>
                                         <button type="submit" class="btn btn-primary btn-xl btn-block">Update</button>

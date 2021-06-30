@@ -138,6 +138,10 @@
                                             <th colspan="4">Shipping</th>
                                             <th>{{ $order->data->shipping_cost }}</th>
                                         </tr>
+                                        <tr>
+                                            <th colspan="4">Advanced</th>
+                                            <th>{{ $advanced = $order->data->advanced ?? 0 }}</th>
+                                        </tr>
                                         @php($total = $order->data->shipping_cost + $order->data->subtotal)
 {{--                                        <tr>--}}
 {{--                                            <th colspan="4">Total</th>--}}
@@ -149,7 +153,7 @@
                                         </tr>
                                         <tr>
                                             <th colspan="4">Payable</th>
-                                            <th>{{ $total - $discount }}</th>
+                                            <th>{{ $total - $advanced - $discount }}</th>
                                         </tr>
                                     </tbody>
                                 </table>
