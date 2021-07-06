@@ -123,8 +123,8 @@
                                     </div>
                                 </div>
                                 <div class="call-for-order">
-                                    <img src="https://tonnicollection.com/public/storage/call-now.gif" width="287" height="68" alt="Call For Order">
-                                    <div style="padding: 10px;margin-bottom: 10px;font-weight: bold;color: red;padding-left: 85px;margin-top: -25px;">
+                                    <img src="{{ asset('call-now-icon-20.jpg') }}" width="155" alt="Call For Order">
+                                    <div style="padding: 10px;margin-bottom: 10px;font-weight: bold;color: red;">
                                         {!! implode('<br>', explode(' ', setting('call_for_order') ?? '')) !!}
                                     </div>
                                 </div>
