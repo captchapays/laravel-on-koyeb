@@ -71,6 +71,96 @@ class OrderController extends Controller
         return redirect(route('admin.orders.show', $order))->withSuccess('Order Has Been Updated.');
     }
 
+    public function addProduct(Request $request, Order $order)
+    {
+        if (!$product = Product::find($request->id_or_sku)) {
+            if (!$product = Product::where('sku', $request->id_or_sku)->first()) {
+                return back()->with('danger', 'No Product Found.');
+            }
+        }
+
+        foreach ($order->products as $orderedProduct) {
+            if ($orderedProduct->id === $product->id) {
+                return back()->with('danger', 'Product Is Already In This Order.');
+            }
+        }
+
+        $id = $product->id;
+        $quantity = $request->get('new_quantity') ?? 1;
+        // Manage Stock
+        if ($product->should_track) {
+            if ($product->stock_count <= 0) {
+                return redirect()->back()->with('Stock Out.');
+            }
+            $quantity = $product->stock_count >= $quantity ? $quantity : $product->stock_count;
+            $product->decrement('stock_count', $quantity);
+        }
+
+        $products = $order->products;
+        $products[] = (object)[
+            'id' => $id,
+            'name' => $product->name,
+            'slug' => $product->slug,
+            'image' => $product->base_image->src,
+            'price' => $product->selling_price,
+            'quantity' => $quantity,
+            'total' => $quantity * $product->selling_price,
+        ];
+
+        $order->update([
+            'products' => $products,
+            'data' => [
+                'subtotal' => $this->getSubtotal($products),
+            ]
+        ]);
+
+        return redirect()->back()->with('success', $order->getChanges() ? 'Order Updated.' : 'Not Updated.');
+    }
+
+    public function updateQuantity(Request $request, Order $order)
+    {
+        $quantities = $request->quantity;
+        $productIDs = collect($order->products)
+            ->map(function ($product) {
+                return $product->id;
+            });
+        $products = Product::find($productIDs)
+            ->map(function (Product $product) use ($quantities) {
+                if ($quantity = data_get($quantities, $product->id)) {
+                    if ($product->should_track) {
+                        if ($product->quantity > $quantity) {
+                            $product->increment('stock_count', $product->quantity - $quantity);
+                        } elseif ($quantity > $product->quantity) {
+                            $quantity = $product->stock_count >= $quantity ? $quantity : $product->stock_count;
+                            $product->decrement('stock_count', $quantity - $product->quantity);
+                        }
+                    }
+                    if ($quantity > 0) {
+                        return [
+                            'id' => $product->id,
+                            'name' => $product->name,
+                            'slug' => $product->slug,
+                            'image' => $product->base_image->src,
+                            'price' => $product->selling_price,
+                            'quantity' => $quantity,
+                            'total' => $quantity * $product->selling_price,
+                        ];
+                    }
+                }
+            })->filter(function ($product) {
+                return $product != null; // Only Available Products
+            })->toArray();
+
+        $order->update([
+            'products' => json_encode($products),
+            'data' => [
+                'subtotal' => $this->getSubtotal($products),
+            ],
+        ]);
+
+        return back()->with('success', $order->getChanges() ? 'Order Updated.' : 'Not Updated.');
+    }
+
     /**
      * Remove the specified resource from storage.
      *

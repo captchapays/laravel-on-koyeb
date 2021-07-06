@@ -30,6 +30,8 @@ Route::group(['namespace' => 'Admin', 'as' => 'admin.'], function() {
         Route::match(['get', 'post'], '/change-password', 'Auth\\ChangePasswordController')
             ->name('password.change');
         Route::any('settings', 'SettingController')->name('settings');
+        Route::patch('/orders/{order}/add-product', 'OrderController@addProduct')->name('orders.add-product');
+        Route::patch('/orders/{order}/update-quantity', 'OrderController@updateQuantity')->name('orders.update-quantity');
         Route::resources([
             'slides'        => 'SlideController',
             'categories'    => 'CategoryController',

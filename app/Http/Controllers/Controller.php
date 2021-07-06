@@ -38,7 +38,7 @@ class Controller extends BaseController
     {
         $route = request()->route();
         $App = App::getNamespace();
-        
+
         # Model Name & Key Name
         $Model = Str::beforeLast(Str::afterLast(\get_called_class(), '\\'), 'Controller');
         $keyName = Str::lower($Model);
@@ -66,5 +66,12 @@ class Controller extends BaseController
         # Deleting The Model
         $model->delete();
         return back()->withSuccess("{$Model} Has Been Deleted.");
+    }
+
+    protected function getSubtotal($products)
+    {
+        return is_array($products) ? array_reduce($products, function ($sum, $product) {
+            return $sum + ((array)$product)['total'];
+        }) : $products->sum('total');
     }
 }

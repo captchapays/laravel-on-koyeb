@@ -77,6 +77,13 @@
                                     <div class="card-divider"></div>
                                     <div class="card-body p-3">
                                         <h3 class="card-title">Ordered Products</h3>
+                                        <div class="d-flex justify-content-between">
+                                            <div class="d-flex">
+                                                <input type="text" name="id_or_sku" id="id-or-sku" placeholder="ID or SKU" class="form-control">
+                                                <input type="text" name="new_quantity" id="new-quantity" placeholder="Quantity" class="form-control">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary" formaction="{{ route('admin.orders.add-product', $order) }}">Add New</button>
+                                        </div>
                                         <div class="table-responsive">
                                             <table class="table table-bordered table-hover">
                                                 <thead>
@@ -95,12 +102,15 @@
                                                         <td>
                                                             <a href="{{ route('products.show', $product->slug) }}">{{ $product->name }}</a>
                                                         </td>
-                                                        <td>{{ $product->quantity }}</td>
+                                                        <td>
+                                                            <input type="text" class="form-control" name="quantity[{{ $product->id }}]" id="quantity-{{ $product->id }}" value="{{ old('quantity.'.$product->id, $product->quantity) }}">
+                                                        </td>
                                                     </tr>
                                                     @endforeach
                                                 </tbody>
                                             </table>
                                         </div>
+                                        <button class="btn btn-success ml-auto d-block" type="submit" formaction="{{ route('admin.orders.update-quantity', $order) }}">Update</button>
                                     </div>
                                 </div>
                             </div>
