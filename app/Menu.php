@@ -12,17 +12,6 @@ class Menu extends Model
         'name', 'slug',
     ];
 
-    public static function booted()
-    {
-        static::saved(function ($menu) {
-            cache()->forget('menus:'.$menu->slug);
-        });
-
-        static::deleting(function ($menu) {
-            cache()->forget('menus:'.$menu->slug);
-        });
-    }
-
     public function getRouteKeyName()
     {
         return 'slug';

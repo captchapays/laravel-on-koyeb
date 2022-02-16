@@ -16,7 +16,7 @@ class BrandController extends Controller
     public function index()
     {
         return $this->view([
-            'brands' => Brand::cached(),
+            'brands' => Brand::all(),
         ]);
     }
 
@@ -46,6 +46,28 @@ class BrandController extends Controller
         Brand::create($data);
 
         return back()->with('success', 'Brand Has Been Created.');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Brand  $brand
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Brand $brand)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Brand  $brand
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Brand $brand)
+    {
+        //
     }
 
     /**

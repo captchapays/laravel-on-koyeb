@@ -46,9 +46,8 @@ class ComposerServiceProvider extends ServiceProvider
 
         foreach ($menus as $slug => $view) {
             View::composer("partials.{$view}", function ($view) use ($slug) {
-                $view->withMenuItems(cache()->rememberForever('menus:'.$slug, function () use ($slug) {
-                    return optional(Menu::whereSlug($slug)->first())->menuItems ?: new Collection();
-                }));
+                $menuItems = optional(Menu::whereSlug($slug)->first())->menuItems;
+                $view->withMenuItems($menuItems ?: new Collection());
             });
         }
 
@@ -68,7 +67,11 @@ class ComposerServiceProvider extends ServiceProvider
             'layouts.errors.master',
         ];
         View::composer($settingsPages, function ($view) {
-            $view->with(Setting::array());
+            $view->with(Cache::get('settings', function () {
+                $settings = Setting::array();
+                Cache::put('settings', $settings);
+                return $settings;
+            }));
         });
     }
 }

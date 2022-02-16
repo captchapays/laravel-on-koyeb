@@ -10,23 +10,6 @@ class Category extends Model
         'parent_id', 'name', 'slug',
     ];
 
-    public static function booted()
-    {
-        static::saved(function ($menu) {
-            cache()->forget('categories:nested');
-            cache()->forget('homesections');
-            cache()->forget('catmenu:nested');
-            cache()->forget('catmenu:nestedwithparent');
-        });
-
-        static::deleting(function ($menu) {
-            cache()->forget('categories:nested');
-            cache()->forget('homesections');
-            cache()->forget('catmenu:nested');
-            cache()->forget('catmenu:nestedwithparent');
-        });
-    }
-
     public function childrens()
     {
         return $this->hasMany(static::class, 'parent_id');
@@ -47,9 +30,7 @@ class Category extends Model
             ->orderBy('childrens_count', 'desc');
         $count && $query->take($count);
 
-        return cache()->rememberForever('categories:nested', function () use ($query) {
-            return $query->get();
-        });
+        return $query->get();
     }
 
     public function products()

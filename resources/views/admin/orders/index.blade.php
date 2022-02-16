@@ -76,14 +76,14 @@
             @foreach(config('app.orders', []) as $status)
             {
                 text: '{{ $status }}',
-                className: 'px-1 py-1 {{ request('status') === strtolower($status) ? 'btn-secondary' : '' }}',
+                className: 'btn-light text-dark px-1 py-1 {{ request('status') === strtolower($status) ? 'active' : '' }}',
                 action: function ( e, dt, node, config ) {
                     window.location = '{{ request()->fullUrlWithQuery(['status' => strtolower($status)]) }}'
                 }
             },@endforeach,
             {
                 text: 'All',
-                className: 'px-1 py-1 {{ request('status') === null ? 'btn-secondary' : '' }}',
+                className: 'btn-light text-dark px-1 py-1 {{ request('status') === null ? 'active' : '' }}',
                 action: function ( e, dt, node, config ) {
                     window.location = '{{ request()->fullUrlWithQuery(['status' => '']) }}'
                 }
@@ -116,29 +116,29 @@
             { data: 'actions', name: 'actions' },
         ],
         initComplete: function () {
-            var tr = $(this.api().table().header()).children('tr').clone();
-            tr.find('th').each(function (i, item) {
-                $(this).removeClass('sorting').addClass('p-1');
-            });
-            tr.appendTo($(this.api().table().header()));
-            this.api().columns().every(function (i) {
-                var th = $(this.header()).parents('thead').find('tr').eq(1).find('th').eq(i);
-                $(th).empty();
+            // var tr = $(this.api().table().header()).children('tr').clone();
+            // tr.find('th').each(function (i, item) {
+            //     $(this).removeClass('sorting').addClass('p-1');
+            // });
+            // tr.appendTo($(this.api().table().header()));
+            // this.api().columns().every(function (i) {
+            //     var th = $(this.header()).parents('thead').find('tr').eq(1).find('th').eq(i);
+            //     $(th).empty();
 
-                if ($.inArray(i, [1, 5, 7]) === -1) {
-                    var column = this;
-                    var input = document.createElement("input");
-                    input.classList.add('form-control', 'border-primary');
-                    $(input).appendTo($(th))
-                        .on('change', function () {
-                            if (i) {
-                                column.search($(this).val(), false, false, true).draw();
-                            } else {
-                                column.search('^'+ (this.value.length ? this.value : '.*') +'$', true, false).draw();
-                            }
-                        });
-                }
-            });
+            //     if ($.inArray(i, [1, 5, 7]) === -1) {
+            //         var column = this;
+            //         var input = document.createElement("input");
+            //         input.classList.add('form-control', 'border-primary');
+            //         $(input).appendTo($(th))
+            //             .on('change', function () {
+            //                 if (i) {
+            //                     column.search($(this).val(), false, false, true).draw();
+            //                 } else {
+            //                     column.search('^'+ (this.value.length ? this.value : '.*') +'$', true, false).draw();
+            //                 }
+            //             });
+            //     }
+            // });
         },
         order: [
             // [1, 'desc']

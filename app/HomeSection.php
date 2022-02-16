@@ -10,19 +10,6 @@ class HomeSection extends Model
         'title', 'type', 'order', 'data',
     ];
 
-    protected $with = ['categories'];
-
-    public static function booted()
-    {
-        static::saved(function ($menu) {
-            cache()->put('homesections', static::orderBy('order', 'asc')->get());
-        });
-
-        static::deleted(function () {
-            cache()->forget('homesections');
-        });
-    }
-
     public function setDataAttribute($data)
     {
         $this->attributes['data'] = json_encode($data);
@@ -42,9 +29,10 @@ class HomeSection extends Model
     {
         $rows = $this->data->rows ?? 3;
         $cols = $this->data->cols ?? 5;
+        $categories = $this->categories->pluck('id')->toArray();
         $query = Product::whereIsActive(1)
-            ->whereHas('categories', function ($query) {
-                $query->whereIn('categories.id', $this->categories->pluck('id')->toArray());
+            ->whereHas('categories', function ($query) use ($categories) {
+                $query->whereIn('categories.id', $categories);
             })
             // ->inRandomOrder()
             ->when($limited, function ($query) use ($rows, $cols) {

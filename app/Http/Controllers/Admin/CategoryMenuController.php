@@ -21,9 +21,19 @@ class CategoryMenuController extends Controller
      */
     public function index()
     {
-        $remaining_cats = Category::with('parent')->whereDoesntHave('categoryMenu')->get();
-        $selected_cats = CategoryMenu::nestedWithParent();
+        $remaining_cats = Category::whereDoesntHave('categoryMenu')->get();
+        $selected_cats = CategoryMenu::nested();
         return view('admin.categories.menu', compact('remaining_cats', 'selected_cats'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -55,16 +65,44 @@ class CategoryMenuController extends Controller
                     CategoryMenu::updateOrInsert(['id' => $val['id']], $val);
                 })->toArray();
 
-            cache()->forget('catmenu:nested');
-            cache()->forget('catmenu:nestedwithparent');
-
             return true;
         }
 
-        cache()->forget('catmenu:nested');
-        cache()->forget('catmenu:nestedwithparent');
-
         return back();
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\CategoryMenu  $categoryMenu
+     * @return Response
+     */
+    public function show(CategoryMenu $categoryMenu)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\CategoryMenu  $categoryMenu
+     * @return Response
+     */
+    public function edit(CategoryMenu $categoryMenu)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @param  \App\CategoryMenu  $categoryMenu
+     * @return Response
+     */
+    public function update(Request $request, CategoryMenu $categoryMenu)
+    {
+        //
     }
 
     /**

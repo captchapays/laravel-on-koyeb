@@ -26,14 +26,12 @@ if (! function_exists('pageRoutes')) {
 
 if (! function_exists('setting')) {
     function setting($name) {
-        return cache()->rememberForever('settings:'.$name, function () use ($name) {
-            return optional(Setting::whereName($name)->first())->value;
-        });
+        return optional(Setting::whereName($name)->first())->value;
     }
 }
 
 if (! function_exists('theMoney')) {
-    function theMoney($amount, $decimals = null, $currency = "TK") {
+    function theMoney($amount, $decimals = null, $currency = "৳") {
         return $currency."&nbsp;<span>".number_format($amount, $decimals)."</span>";
     }
 }

@@ -212,7 +212,7 @@
         <!-- desktop site__header / end -->
         <!-- site__body -->
         <div class="site__body">
-            <div class="container">
+            <div class="container py-0">
                 <x-alert-box class="row mt-2" />
             </div>
             @yield('content')

@@ -152,31 +152,17 @@
                                                 <div class="col-sm-12">
                                                     <h4><small class="border-bottom mb-1">Price</small></h4>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-6">
                                                     <div class="form-group">
                                                         <x-label for="price" /><span class="text-danger">*</span>
                                                         <x-input name="price" :value="$product->price" />
                                                         <x-error field="price" />
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <x-label for="discount" /><span class="text-danger">*</span>
-                                                        <div class="input-group">
-                                                            <div class="input-group-prepend">
-                                                                <select class="form-control mr-1" name="discount_type" id="discount-type">
-                                                                    <option value="fixed">Fixed</option>
-                                                                    <option value="percent">Percent</option>
-                                                                </select>
-                                                            </div>
-                                                            <input type="text" class="form-control" value="0" onfocus="this.select()">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-6">
                                                     <div class="form-group">
                                                         <x-label for="selling_price" /><span class="text-danger">*</span>
-                                                        <x-input name="selling_price" :value="$product->selling_price" readonly />
+                                                        <x-input name="selling_price" :value="$product->selling_price" />
                                                         <x-error field="selling_price" />
                                                     </div>
                                                 </div>
