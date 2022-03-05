@@ -38,7 +38,7 @@
         }
 
         #xzoom-default {
-            max-height: 250px;
+            max-height: 300px;
         }
     </style>
 @endpush
@@ -53,20 +53,23 @@
             <div class="product product--layout--standard" data-layout="standard">
                 <div class="product__content" data-id="{{ $product->id }}" data-max="{{ $product->should_track ? $product->stock_count : -1 }}">
 
-                    <div class="xzoom-container d-flex">
-                        <img class="xzoom" id="xzoom-default" src="{{ asset($product->base_image->src) }}" xoriginal="{{ asset($product->base_image->src) }}" />
-                        <div class="xzoom-thumbs d-flex flex-column mt-2">
-                            <a href="{{ asset($product->base_image->src) }}"><img class="xzoom-gallery" width="60" src="{{ asset($product->base_image->src) }}" xpreview="{{ asset($product->base_image->src) }}"></a>
-                            @foreach($product->additional_images as $image)
-                                <a href="{{ asset($image->src) }}">
-                                    <img class="xzoom-gallery" width="60" src="{{ asset($image->src) }}">
-                                </a>
-                            @endforeach
-                        </div>
+                    <div class="xzoom-container d-flex flex-column">
+                        <img class="xzoom" id="xzoom-default" src="{{ asset($product->base_image->src) }}" xoriginal="{{ asset($product->base_image->src) }}" style="width: 100%;" />
+                        @if($product->additional_images->isNotEmpty())
+                            <div class="xzoom-thumbs d-flex mt-2">
+                                <a href="{{ asset($product->base_image->src) }}"><img class="xzoom-gallery" width="60" src="{{ asset($product->base_image->src) }}" xpreview="{{ asset($product->base_image->src) }}"></a>
+                                @foreach($product->additional_images as $image)
+                                    <a href="{{ asset($image->src) }}">
+                                        <img class="xzoom-gallery" width="60" src="{{ asset($image->src) }}">
+                                    </a>
+                                @endforeach
+                            </div>
+                        @endif
                     </div>
                     <!-- .product__info -->
                     <div class="product__info">
                         <div class="product__prices {{$product->selling_price == $product->price ? '' : 'has-special'}} d-flex align-items-center mb-2">
+                            Price: &nbsp;
                             @if($product->selling_price == $product->price)
                                 {!!  theMoney($product->price)  !!}
                             @else
@@ -83,13 +86,6 @@
                                     <div class="product__actions">
                                         <div class="d-flex">
                                             <div class="product__actions-item d-flex justify-content-center flex-column" style="width: 120px;">
-                                                <p class="text-center">
-                                                    @if(! $product->should_track)
-                                                        <span class="text-success">In Stock</span>
-                                                    @else
-                                                        <span class="text-{{ $product->stock_count ? 'success' : 'danger' }}">{{ $product->stock_count }} In Stock</span>
-                                                    @endif
-                                                </p>
                                                 <label class="product__option-label text-center" for="product-quantity">Quantity</label>
                                                 <div class="input-number product__quantity">
                                                     <input id="product-quantity"
@@ -100,9 +96,11 @@
                                                 </div>
                                             </div>
                                             <div class="call-for-order">
-                                                <img class="d-block mx-auto" src="{{ asset('call-now-icon-20.jpg') }}" width="80" alt="Call For Order">
-                                                <div style="padding: 5px 10px;font-weight: bold;color: red; font-size: 88%;">
-                                                    {!! implode('<br>', explode(' ', setting('call_for_order') ?? '')) !!}
+                                            <!--<img class="d-block mx-auto" src="{{ asset('call-now-icon-20.jpg') }}" width="80" alt="Call For Order">-->
+                                                <div style="padding: 5px 10px;font-weight: bold; font-size: 88%;">
+                                                    @foreach(explode(' ', setting('call_for_order') ?? '') as $phone)
+                                                        <a href="tel:{{$phone}}" style="color: red; display: block;"><img style="width:30px" class="img-responsive " src="{{ asset('call-now.gif') }}" alt="Call" title="Call For Order"> {{ $phone }}</a>
+                                                    @endforeach
                                                 </div>
                                             </div>
                                         </div>
