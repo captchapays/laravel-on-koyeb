@@ -3,6 +3,12 @@
 
 @push('css')
 <link rel="stylesheet" type="text/css" href="{{asset('assets/css/animate.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('assets/css/daterange-picker.css')}}">
+<style>
+    .daterangepicker {
+        border: 2px solid #d7d7d7 !important;
+    }
+</style>
 @endpush
 
 @section('breadcrumb-title')
@@ -11,6 +17,14 @@
 
 @section('breadcrumb-items')
 <li class="breadcrumb-item">Dashboard</li>
+@endsection
+
+@section('breadcrumb-right')
+    <div class="theme-form m-t-10">
+        <div style="max-width: 300px; margin: 0 auto;">
+            <input class="form-control" id="reportrange" type="text">
+        </div>
+    </div>
 @endsection
 
 @section('content')
@@ -184,3 +198,16 @@
    </div>
 </div>
 @endsection
+
+@push('js')
+    <script src="{{ asset('assets/js/datepicker/daterange-picker/moment.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datepicker/daterange-picker/daterangepicker.js') }}"></script>
+    <script src="{{ asset('assets/js/datepicker/daterange-picker/daterange-picker.custom.js') }}"></script>
+    <script>
+        window._start = moment('{{ $start }}');
+        window._end = moment('{{ $end }}');
+        window.reportRangeCB = function (start, end) {
+            window.location = "{!! route('admin.home', ['start'=> '_start', 'end' => '_end']) !!}".replace('_start', start.format('YYYY-MM-DD')).replace('_end', end.format('YYYY-MM-DD'));
+        }
+    </script>
+@endpush
