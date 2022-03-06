@@ -19,7 +19,15 @@
             color: #000;
         }
 
+        #xzoom-default {
+            max-height: 350px;
+            width: 100%;
+        }
         @media (max-width: 768px) {
+            #xzoom-default {
+                max-height: 300px;
+                width: 100%;
+            }
             .product__actions {
                 justify-content: center;
             }
@@ -37,8 +45,30 @@
             height: auto;
         }
 
-        #xzoom-default {
-            max-height: 300px;
+        .original {
+            position: relative;
+        }
+        .zoom-nav {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .zoom-control {
+            height: 34px;
+            outline: none;
+            border: none;
+            cursor: pointer;
+            opacity: 0.5;
+        }
+        .zoom-control:hover {
+            opacity: 0.8;
+        }
+        .zoom-control:focus {
+            outline: none;
         }
     </style>
 @endpush
@@ -54,10 +84,18 @@
                 <div class="product__content" data-id="{{ $product->id }}" data-max="{{ $product->should_track ? $product->stock_count : -1 }}">
 
                     <div class="xzoom-container d-flex flex-column">
-                        <img class="xzoom" id="xzoom-default" src="{{ asset($product->base_image->src) }}" xoriginal="{{ asset($product->base_image->src) }}" style="width: 100%;" />
+                        <div class="original">
+                            <img class="xzoom" id="xzoom-default" src="{{ asset($product->base_image->src) }}" xoriginal="{{ asset($product->base_image->src) }}" style="width: 100%;" />
+                            <div class="zoom-nav">
+                                <button class="zoom-control left">&larr;</button>
+                                <button class="zoom-control right">&rarr;</button>
+                            </div>
+                        </div>
                         @if($product->additional_images->isNotEmpty())
                             <div class="xzoom-thumbs d-flex mt-2">
-                                <a href="{{ asset($product->base_image->src) }}"><img class="xzoom-gallery" width="60" src="{{ asset($product->base_image->src) }}" xpreview="{{ asset($product->base_image->src) }}"></a>
+                                <a href="{{ asset($product->base_image->src) }}">
+                                    <img class="xzoom-gallery" width="60" src="{{ asset($product->base_image->src) }}" xpreview="{{ asset($product->base_image->src) }}">
+                                </a>
                                 @foreach($product->additional_images as $image)
                                     <a href="{{ asset($image->src) }}">
                                         <img class="xzoom-gallery" width="60" src="{{ asset($image->src) }}">
@@ -222,7 +260,30 @@
     <script src="{{ asset('strokya/vendor/xZoom-master/example/js/setup.js') }}"></script>
     <script>
         $(document).ready(function () {
-
+            let activeG = 0;
+            let lastG = 0;
+            $('.zoom-control.left').click(function () {
+                let gallery = $('.xzoom-gallery');
+                gallery.each(function (g, e) {
+                    if ($(e).hasClass('xactive')) {
+                        activeG = g;
+                    }
+                    lastG = g;
+                })
+                const prev = activeG === 0 ? lastG : (activeG - 1);
+                gallery.eq(prev).trigger('click');
+            });
+            $('.zoom-control.right').click(function () {
+                let gallery = $('.xzoom-gallery');
+                gallery.each(function (g, e) {
+                    if ($(e).hasClass('xactive')) {
+                        activeG = g;
+                    }
+                    lastG = g;
+                })
+                const next = activeG === lastG ? 0 : (activeG + 1);
+                gallery.eq(next).trigger('click');
+            });
         });
     </script>
 @endpush
