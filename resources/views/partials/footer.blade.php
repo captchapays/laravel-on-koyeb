@@ -1,8 +1,8 @@
 <footer class="site__footer">
     <div class="site-footer">
-        <div class="container p-0">
+        <div class="container py-0">
             <div class="site-footer__widgets">
-                <div class="row justify-content-between">
+                <div class="row">
                     <div class="col-12 col-md-6 col-lg-4">
                         <div class="site-footer__widget footer-contacts">
                             <h5 class="footer-contacts__title">{{ $company->name ?? '' }}</h5>
