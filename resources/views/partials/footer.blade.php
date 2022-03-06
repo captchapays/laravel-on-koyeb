@@ -1,7 +1,7 @@
 <footer class="site__footer">
     <div class="site-footer">
-        <div class="container">
-            <div class="site-footer__widgets pt-5 pb-2">
+        <div class="container p-0">
+            <div class="site-footer__widgets">
                 <div class="row justify-content-between">
                     <div class="col-12 col-md-6 col-lg-4">
                         <div class="site-footer__widget footer-contacts">
@@ -72,10 +72,10 @@
             </div>
 {{--            <img class="mw-100" src="{{ asset('SSLCommerz-Pay-With-logo-All-Size-02.png') }}" alt="">--}}
             <div class="site-footer__bottom">
-                <div class="site-footer__copyright">
+                <div class="site-footer__copyright d-none d-md-block">
                     Copyright 2020 - {{ date('Y') }} &copy; {{ $company->name ?? '' }}
                 </div>
-                <div class="site-footer__payments">
+                <div class="site-footer__payments m-0">
                     Developed By <a href="https://cyber32.com" class="text-danger">Cyber 32</a>
                 </div>
             </div>
