@@ -30,7 +30,7 @@
                     @endif
                     <div class="col-12 col-md-6 col-lg-4">
                         <div class="site-footer__widget footer-newsletter">
-                            <h5 class="footer-newsletter__title">Socials</h5>
+                            <h5 class="footer-newsletter__title d-none d-md-block">Socials</h5>
                             <div class="footer-newsletter__text footer-newsletter__text--social">Follow us on social networks</div>
                             <ul class="footer-newsletter__social-links">
                                 <li class="footer-newsletter__social-link footer-newsletter__social-link--phone">
