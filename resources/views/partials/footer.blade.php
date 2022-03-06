@@ -70,7 +70,7 @@
                     </div>
                 </div>
             </div>
-            <img class="mw-100" src="{{ asset('SSLCommerz-Pay-With-logo-All-Size-02.png') }}" alt="">
+{{--            <img class="mw-100" src="{{ asset('SSLCommerz-Pay-With-logo-All-Size-02.png') }}" alt="">--}}
             <div class="site-footer__bottom">
                 <div class="site-footer__copyright">
                     Copyright 2020 - {{ date('Y') }} &copy; {{ $company->name ?? '' }}
