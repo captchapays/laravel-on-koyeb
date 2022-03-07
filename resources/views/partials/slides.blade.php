@@ -7,14 +7,6 @@
         .block-slideshow__slide-image--mobile {
             background-size: cover;
         }
-        .footer-contacts,
-        .footer-links,
-        .footer-newsletter {
-            text-align: left;
-        }
-        .footer-links ul {
-            padding-left: 27px;
-        }
     }
 
     .block-slideshow__body {

@@ -23,6 +23,9 @@
             max-height: 350px;
             width: 100%;
         }
+        .product__actions-item {
+            flex: 1;
+        }
         @media (max-width: 768px) {
             #xzoom-default {
                 max-height: 300px;
@@ -36,7 +39,7 @@
             }
         }
         .product__content {
-            grid-template-columns: [gallery] calc(40% - 30px) [info] calc(40% - 35px) [sidebar] calc(25% - 10px);
+            grid-template-columns: [gallery] calc(40% - 30px) [info] calc(5% - -18px) [sidebar] calc(45% - 10px) [other] calc(10% - 10px);
             grid-column-gap: 10px;
         }
 
@@ -104,6 +107,7 @@
                             </div>
                         @endif
                     </div>
+                    <div></div>
                     <!-- .product__info -->
                     <div class="product__info">
                         <div class="product__prices {{$product->selling_price == $product->price ? '' : 'has-special'}} d-flex align-items-center mb-2">
@@ -114,18 +118,18 @@
                                 <span class="product-card__new-price">{!!  theMoney($product->selling_price)  !!}</span>
                                 <span class="product-card__old-price" style="font-weight: normal;">{!!  theMoney($product->price)  !!}</span>
                             @endif
-                            <div class="m-auto" style="font-size: 70%;">Code: <strong>{{ $product->sku }}</strong></div>
+                            <div class="ml-auto" style="font-size: 70%;">Code: <strong>{{ $product->sku }}</strong></div>
                         </div>
                         <!-- .product__sidebar -->
                         <div class="product__sidebar">
                             <!-- .product__options -->
                             <form class="product__options">
                                 <div class="form-group product__option">
-                                    <div class="product__actions">
-                                        <div class="d-flex">
-                                            <div class="product__actions-item d-flex justify-content-center flex-column" style="width: 120px;">
+                                    <div class="product__actions" style="row-gap: 5px">
+                                        <div class="d-flex w-100" style="column-gap: 10px">
+                                            <div class="product__actions-item d-flex justify-content-center flex-column" style="width: 120px;flex: 1">
                                                 <label class="product__option-label text-center" for="product-quantity">Quantity</label>
-                                                <div class="input-number product__quantity">
+                                                <div class="input-number product__quantity w-100">
                                                     <input id="product-quantity"
                                                            class="input-number__input form-control form-control-lg"
                                                            type="number" min="1" {{ $product->should_track ? 'max='.$product->stock_count : '' }} value="1">
@@ -133,7 +137,7 @@
                                                     <div class="input-number__sub"></div>
                                                 </div>
                                             </div>
-                                            <div class="call-for-order">
+                                            <div class="call-for-order" style="flex: 1">
                                             <!--<img class="d-block mx-auto" src="{{ asset('call-now-icon-20.jpg') }}" width="80" alt="Call For Order">-->
                                                 <div style="padding: 5px 10px;font-weight: bold; font-size: 88%;">
                                                     @foreach(explode(' ', setting('call_for_order') ?? '') as $phone)
@@ -143,7 +147,7 @@
                                             </div>
                                         </div>
                                         @exp($available = !$product->should_track || $product->stock_count > 0)
-                                        <div class="product__buttons d-flex flex-wrap">
+                                        <div class="product__buttons d-flex w-100 flex-wrap">
                                             <div class="product__actions-item product__actions-item--addtocart">
                                                 <button class="btn btn-primary product__addtocart btn-lg btn-block" {{ $available ? '' : 'disabled' }}>Add to cart</button>
                                             </div>
@@ -156,7 +160,7 @@
                             </form><!-- .product__options / end -->
                         </div><!-- .product__end -->
 
-                        <div class="product__footer mt-0">
+                        <div class="product__footer mt-2">
                             <div class="product__tags tags">
                                 @if($product->brand)
                                     <p class="text-secondary mb-2">
@@ -172,28 +176,7 @@
                             </div>
                         </div>
                     </div><!-- .product__info / end -->
-                    <div>
-                        <div class="block-features__list flex-column d-none d-md-block">
-                            @if($services = setting('services'))
-                                @foreach(config('services.services', []) as $num => $icon)
-                                    <div class="block-features__item">
-                                        <div class="block-features__icon">
-                                            <svg width="48px" height="48px">
-                                                <use xlink:href="{{ asset($icon) }}"></use>
-                                            </svg>
-                                        </div>
-                                        <div class="block-features__content">
-                                            <div class="block-features__title">{{ $services->$num->title }}</div>
-                                            <div class="block-features__subtitle">{{ $services->$num->detail }}</div>
-                                        </div>
-                                    </div>
-                                    @if(!$loop->last)
-                                        <div class="block-features__divider"></div>
-                                    @endif
-                                @endforeach
-                            @endif
-                        </div>
-                    </div>
+                    <div></div>
                 </div>
             </div>
             <div id="accordion" class="mt-3">
