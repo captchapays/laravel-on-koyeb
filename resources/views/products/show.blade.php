@@ -79,7 +79,7 @@
 @section('title', $product->name)
 
 @section('content')
-    <div class="block">
+    <div class="">
         <div class="container pt-2">
             <p class="product__name mb-2" style="font-size: 88%; line-height: 1.25;">{{ $product->name }}</p>
 
@@ -204,27 +204,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="block-features__list flex-column d-md-none">
-                @if($services = setting('services'))
-                    @foreach(config('services.services', []) as $num => $icon)
-                        <div class="block-features__item">
-                            <div class="block-features__icon">
-                                <svg width="48px" height="48px">
-                                    <use xlink:href="{{ asset($icon) }}"></use>
-                                </svg>
-                            </div>
-                            <div class="block-features__content">
-                                <div class="block-features__title">{{ $services->$num->title }}</div>
-                                <div class="block-features__subtitle">{{ $services->$num->detail }}</div>
-                            </div>
-                        </div>
-                        @if(!$loop->last)
-                            <div class="block-features__divider"></div>
-                        @endif
-                    @endforeach
-                @endif
             </div>
         </div>
     </div>
