@@ -61,14 +61,22 @@
             align-items: center;
         }
         .zoom-control {
-            height: 34px;
+            height: 40px;
             outline: none;
-            border: none;
+            border: 2px solid white;
             cursor: pointer;
-            opacity: 0.5;
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 10px;
+            width: 40px;
+            border-radius: 20px;
+            color: white;
+            background: black;
         }
         .zoom-control:hover {
-            opacity: 0.8;
+            opacity: 1;
         }
         .zoom-control:focus {
             outline: none;
@@ -90,8 +98,12 @@
                         <div class="original">
                             <img class="xzoom" id="xzoom-default" src="{{ asset($product->base_image->src) }}" xoriginal="{{ asset($product->base_image->src) }}" style="width: 100%;" />
                             <div class="zoom-nav">
-                                <button class="zoom-control left">&larr;</button>
-                                <button class="zoom-control right">&rarr;</button>
+                                <button class="zoom-control left">
+                                    <i class="fa fa-chevron-left"></i>
+                                </button>
+                                <button class="zoom-control right">
+                                    <i class="fa fa-chevron-right"></i>
+                                </button>
                             </div>
                         </div>
                         @if($product->additional_images->isNotEmpty())
