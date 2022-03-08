@@ -42,7 +42,7 @@
                 padding: .35rem .75rem;
             }
             .mobile-header__search {
-                top: 54px;
+                top: 50px;
                 box-shadow: none;
             }
             .mobile-header__search-form .aa-input-icon {
@@ -95,6 +95,7 @@
         }
         .aa-input-container {
             width: 100%;
+            height: 100%;
         }
         .algolia-autocomplete {
             width: 100%;
@@ -106,27 +107,36 @@
         .indicator__area {
             padding: 0 8px;
         }
-        .mobile-header__panel .container {
-            padding-top: 0;
-            padding-bottom: 0;
-        }
         .mobile-header__search.mobile-header__search--opened {
-            height: 100%;
+            height: 40px;
             display: flex;
-            align-items: center;
         }
         .mobile-header__search-form {
             width: 100%;
+            padding: 0 10px;
+            margin-bottom: 3px;
         }
         .mobile-header__search-form .aa-input-container {
             display: flex;
         }
         .mobile-header__search-form .aa-input-search {
             box-shadow: none;
+            border: 2px solid #000000;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border-right-width: 1px;
+        }
+        .mobile-header__search-button {
+            background: #f3f3f3;
+            color: #ca3d1b;
+            fill: #ca3d1b;
+            border: 2px solid #000000;
+            border-left-width: 1px;
+            border-radius: 0 4px 4px 0;
         }
         .mobile-header__search-form .aa-hint,
         .mobile-header__search-form .aa-input {
-            height: 54px;
+            height: 42px;
             padding-right: 32px;
         }
         .mobile-header__search-form .aa-input-icon {
@@ -135,6 +145,15 @@
         .mobile-header__search-form .aa-dropdown-menu {
             background-color: #f7f8f9;
             z-index: 9999 !important;
+        }
+        .mobilemenu__close {
+            height: 34px;
+            width: 34px;
+            fill: #fff;
+            padding: 0px 1px 2px 0px;
+            margin-right: -16px;
+            border-radius: 50%;
+            background: black;
         }
         .aa-input-container input {
             font-size: 15px;
@@ -153,10 +172,11 @@
                 z-index: 9999;
             }
             .header-fixed .site__body {
-                padding-top: 91px;
+                padding-top: 135px;
             }
             .header-fixed .mobilemenu__body {
-                top: 91px;
+                top: 36px;
+                z-index: 9999;
             }
         }
 
@@ -184,7 +204,7 @@
     </div><!-- quickview-modal / end -->
     <!-- mobilemenu -->
     <div class="mobilemenu">
-        <div class="mobilemenu__backdrop"></div>
+        <div class="mobilemenu__backdrop" style="opacity: 0"></div>
         <div class="mobilemenu__body">
             <div class="mobilemenu__header">
                 <div class="mobilemenu__title">Menu</div>

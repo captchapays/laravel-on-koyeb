@@ -2,6 +2,14 @@
 
 @section('title', 'Products')
 
+@push('styles')
+    <style>
+        .pagination {
+            flex-wrap: wrap;
+        }
+    </style>
+@endpush
+
 @section('content')
 
 @include('partials.page-header', [

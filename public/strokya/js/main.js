@@ -141,11 +141,11 @@
                 mobileSearch.removeClass('mobile-header__search--opened');
             });
 
-            document.addEventListener('click', function(event) {
-                if (!$(event.target).closest('.indicator--mobile-search, .mobile-header__search').length) {
-                    mobileSearch.removeClass('mobile-header__search--opened');
-                }
-            }, true);
+            // document.addEventListener('click', function(event) {
+            //     if (!$(event.target).closest('.indicator--mobile-search, .mobile-header__search').length) {
+            //         mobileSearch.removeClass('mobile-header__search--opened');
+            //     }
+            // }, true);
         }
     });
 
