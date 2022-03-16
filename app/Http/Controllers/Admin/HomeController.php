@@ -26,6 +26,13 @@ class HomeController extends Controller
         $orderQ = Order::query()->whereBetween('created_at', [$_start->startOfDay()->toDateTimeString(), $_end->endOfDay()->toDateTimeString()]);
         $orders = ['Total' => (clone $orderQ)->count()];
         foreach (config('app.orders', []) as $status) {
+            if ($status == 'Shipping') {
+                $orders[$status] = Order::query()
+                    ->whereBetween('shipped_at', [$_start->startOfDay()->toDateTimeString(), $_end->endOfDay()->toDateTimeString()])
+                    ->where('status', $status)
+                    ->count();
+                continue;
+            }
             $orders[$status] = (clone $orderQ)->where('status', $status)->count();
         }
         $inactiveProducts = Product::whereIsActive(0)->get();

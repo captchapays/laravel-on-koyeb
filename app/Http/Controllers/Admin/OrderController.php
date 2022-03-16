@@ -67,6 +67,10 @@ class OrderController extends Controller
             'data.advanced' => 'required|integer',
         ]);
 
+        if ($order->status != 'Shipping' && $data['status'] == 'Shipping') {
+            $order->forceFill(['shipped_at' => now()->toDateTimeString()]);
+        }
+
         $order->update($data);
         return redirect(route('admin.orders.show', $order))->withSuccess('Order Has Been Updated.');
     }
