@@ -72,8 +72,8 @@
             margin: 0 10px;
             width: 40px;
             border-radius: 20px;
-            color: white;
-            background: black;
+            color: #ca3d1c;
+            background: transparent;
         }
         .zoom-control:hover {
             opacity: 1;
