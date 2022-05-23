@@ -78,14 +78,14 @@
                 text: '{{ $status }}',
                 className: 'btn-light text-dark px-1 py-1 {{ request('status') === strtolower($status) ? 'active' : '' }}',
                 action: function ( e, dt, node, config ) {
-                    window.location = '{{ request()->fullUrlWithQuery(['status' => strtolower($status)]) }}'
+                    window.location = '{!! request()->fullUrlWithQuery(['status' => strtolower($status)]) !!}'
                 }
             },@endforeach,
             {
                 text: 'All',
                 className: 'btn-light text-dark px-1 py-1 {{ request('status') === null ? 'active' : '' }}',
                 action: function ( e, dt, node, config ) {
-                    window.location = '{{ request()->fullUrlWithQuery(['status' => '']) }}'
+                    window.location = '{!! request()->fullUrlWithQuery(['status' => '']) !!}'
                 }
             },
         ],

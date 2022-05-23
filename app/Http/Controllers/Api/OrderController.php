@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Order;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 
 class OrderController extends Controller
@@ -18,12 +19,24 @@ class OrderController extends Controller
      */
     public function __invoke(Request $request)
     {
+        $_start = Carbon::parse(\request('start_d'));
+        $start = $_start->format('Y-m-d');
+        $_end = Carbon::parse(\request('end_d'));
+        $end = $_end->format('Y-m-d');
+
 //        dd(Order::query()->first());
         $orders = Order::when($request->has('status'), function ($query) {
             $query->where('status', 'like', \request('status'));
-        })->when(!$request->has('order'), function ($query) {
-            $query->latest('id');
-        });
+        })
+            ->when($request->has(['start_d', 'end_d']), function ($query) use ($_start, $_end) {
+                $query->whereBetween(Str::of(\request('status'))->lower()->is('shipping') ? 'shipped_at' : 'created_at', [
+                    $_start->startOfDay()->toDateTimeString(),
+                    $_end->endOfDay()->toDateTimeString()
+                ]);
+            })
+            ->when(!$request->has('order'), function ($query) {
+                $query->latest('id');
+            });
 
 
         return DataTables::of($orders)

@@ -17,9 +17,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $_start = Carbon::parse(\request('start'));
+        $_start = Carbon::parse(\request('start_d'));
         $start = $_start->format('Y-m-d');
-        $_end = Carbon::parse(\request('end'));
+        $_end = Carbon::parse(\request('end_d'));
         $end = $_end->format('Y-m-d');
 
         $productsCount = Product::count();

@@ -86,8 +86,10 @@
                   <div class="card-body">
                      <div class="media">
                         <div class="media-body">
-                           <p class="f-w-500 font-roboto">{{ $status }} Orders</p>
-                           <h4 class="f-w-500 mb-0 f-26"><span class="counter">{{ $count }}</span></h4>
+                            <a href="{{ route('admin.orders.index', array_merge(['status' => in_array($stat = strtolower($status), ['all', 'total']) ? '' : $stat, 'start_d' => date('Y-m-d'), 'end_d' => date('Y-m-d')], request()->query())) }}">
+                                <p class="f-w-500 font-roboto">{{ $status }} Orders</p>
+                                <h4 class="f-w-500 mb-0 f-26"><span class="-counter-">{{ $count }}</span></h4>
+                            </a>
                         </div>
                      </div>
                   </div>
@@ -186,7 +188,7 @@
         window._start = moment('{{ $start }}');
         window._end = moment('{{ $end }}');
         window.reportRangeCB = function (start, end) {
-            window.location = "{!! route('admin.home', ['start'=> '_start', 'end' => '_end']) !!}".replace('_start', start.format('YYYY-MM-DD')).replace('_end', end.format('YYYY-MM-DD'));
+            window.location = "{!! route('admin.home', ['start_d'=> '_start', 'end_d' => '_end']) !!}".replace('_start', start.format('YYYY-MM-DD')).replace('_end', end.format('YYYY-MM-DD'));
         }
     </script>
 @endpush
