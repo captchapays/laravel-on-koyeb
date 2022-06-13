@@ -18,6 +18,8 @@ return [
     'orders' => [
         'Pending',
         'Processing',
+        'bKash Pending',
+        'Invoice Pending',
         'Shipping',
         'Delivered',
         'Waiting',
