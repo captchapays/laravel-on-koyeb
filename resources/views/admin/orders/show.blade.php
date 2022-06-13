@@ -7,6 +7,10 @@
 
 @push('styles')
 <style>
+    .invoice th,
+    .invoice td {
+        padding: 0.5rem;
+    }
 @media print {
     html, body {
         height:100vh;
@@ -66,14 +70,14 @@
                                         </div>
                                         <div class="media-body m-l-20">
                                             <h4 class="media-heading">{{ $company->name }}</h4>
-                                            <p>{{ $company->email }}<br><span class="digits">{{ $company->phone }}</span></p>
+                                            <p>@if($company->email){{ $company->email }}<br>@endif<span class="digits">{{ $company->phone }}</span></p>
                                         </div>
                                     </div>
                                     <!-- End Info-->
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="text-md-right">
-                                        <h3>Invoice #<span class="digits counter">{{ $order->id }}</span></h3>
+                                        <h3>Invoice #<span class="digits -counter-">{{ $order->id }}</span></h3>
                                         <p>
                                             Ordered At: {{ $order->created_at->format('M') }}<span class="digits"> {{ $order->created_at->format('d, Y') }}</span>
                                             <br> Invoiced At: {{ date('M') }}<span class="digits"> {{ date('d, Y') }}</span>
@@ -86,19 +90,23 @@
                         <hr>
                         <!-- End InvoiceTop-->
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-7">
                                 <div class="media">
                                     <div class="media-body m-l-20">
-                                        <h4 class="media-heading">{{ $order->name }}</h4>
+                                        <h6 class="media-heading">Customer Information:</h6>
+                                        <div><b>Name:</b> {{ $order->name }}</div>
+                                        <div><b>Address:</b> {{ $order->address }}</div>
                                         <div>
-                                            @if($order->email)<span class="digits">{{ $order->email }}</span><br>@endif
-                                            {{ $order->phone }}
+                                            @if($order->email)
+                                                <span><b>Email:</b> {{ $order->email }}</span>
+                                                <br>
+                                            @endif
+                                            <span><b>Phone:</b> {{ $order->phone }}</span>
                                         </div>
-                                        <div>{{ $order->address }}</div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-5">
                                 <div class="text-md-right" id="project">
                                     <h6>Note</h6>
                                     <p>{{ $order->note ?? 'N/A' }}</p>
@@ -130,32 +138,28 @@
                                             <td>{{ $product->quantity * $product->price }}</td>
                                         </tr>
                                         @endforeach
-                                        <tr>
-                                            <th colspan="4">Subtotal</th>
-                                            <th>{{ $order->data->subtotal }}</th>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="4">Shipping</th>
-                                            <th>{{ $order->data->shipping_cost }}</th>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="4">Advanced</th>
-                                            <th>{{ $advanced = $order->data->advanced ?? 0 }}</th>
-                                        </tr>
-                                        @php($total = $order->data->shipping_cost + $order->data->subtotal)
-{{--                                        <tr>--}}
-{{--                                            <th colspan="4">Total</th>--}}
-{{--                                            <th>{{ $total }}</th>--}}
-{{--                                        </tr>--}}
-                                        <tr>
-                                            <th colspan="4">Discount</th>
-                                            <th>{{ $discount = $order->data->discount ?? 0 }}</th>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="4">Payable</th>
-                                            <th>{{ $total - $advanced - $discount }}</th>
-                                        </tr>
                                     </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <th class="text-right" colspan="4">Subtotal</th>
+                                        <th class="text-right">{{ $order->data->subtotal }}</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-right" colspan="4">Delivery Charge</th>
+                                        <th class="text-right">{{ $order->data->shipping_cost }}</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-right" colspan="4">Total</th>
+                                        <th class="text-right">{{ $order->data->shipping_cost + $order->data->subtotal }}</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-right" colspan="4">Paid</th>
+                                        <th class="text-right">{{ $order->data->advanced ?? 0 }}</th>
+                                    </tr><tr>
+                                        <th class="text-right" colspan="4">Payable</th>
+                                        <th class="text-right">{{ $order->data->shipping_cost + $order->data->subtotal - ($order->data->advanced ?? 0) }}</th>
+                                    </tr>
+                                    </tfoot>
                                 </table>
                             </div>
                             <!-- End Table-->
