@@ -41,6 +41,9 @@ class OrderController extends Controller
 
         return DataTables::of($orders)
             ->addIndexColumn()
+            ->editColumn('name', function ($row) {
+                return "<div class='text-nowrap'>" . $row->name . "<br><span class='text-danger'>" . $row->note . "</span></div>";
+            })
             ->editColumn('created_at', function ($row) {
                 return "<div class='text-nowrap'>" . $row->created_at->format('d-M-Y') . "<br>" . $row->created_at->format('h:i A') . "</div>";
             })
@@ -49,14 +52,14 @@ class OrderController extends Controller
             })
             ->addColumn('actions', function (Order $order) {
                 return '<div class="d-flex justify-content-center">
-                    <a href="'.route('admin.orders.show', $order).'" class="btn btn-sm btn-primary px-2 d-block">View</a>
+                    <a target="_blank" href="'.route('admin.orders.show', $order).'" class="btn btn-sm btn-primary px-2 d-block">View</a>
                     <a href="'.route('admin.orders.destroy', $order).'" data-action="delete" class="btn btn-sm btn-danger px-2 d-block">Delete</a>
                 </div>';
             })
             // ->filterColumn('created_at', function($query, $keyword) {
             //     $query->where('created_at', 'like', "%" . Carbon::createFromFormat('d-M-Y', $keyword)->format('Y-m-d') ."%");
             // })
-            ->rawColumns(['created_at', 'actions'])
+            ->rawColumns(['name', 'created_at', 'actions'])
             ->make(true);
     }
 }
