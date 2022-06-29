@@ -149,15 +149,21 @@
                                         <th class="text-right">{{ $order->data->shipping_cost }}</th>
                                     </tr>
                                     <tr>
-                                        <th class="text-right" colspan="4">Total</th>
-                                        <th class="text-right">{{ $order->data->shipping_cost + $order->data->subtotal }}</th>
+                                        <th class="text-right" colspan="4">Advanced</th>
+                                        <th class="text-right">{{ $advanced = $order->data->advanced ?? 0 }}</th>
+                                    </tr>
+                                    @php($total = $order->data->shipping_cost + $order->data->subtotal)
+{{--                                        <tr>--}}
+{{--                                            <th colspan="4">Total</th>--}}
+{{--                                            <th>{{ $total }}</th>--}}
+{{--                                        </tr>--}}
+                                    <tr>
+                                        <th class="text-right" colspan="4">Discount</th>
+                                        <th class="text-right">{{ $discount = $order->data->discount ?? 0 }}</th>
                                     </tr>
                                     <tr>
-                                        <th class="text-right" colspan="4">Paid</th>
-                                        <th class="text-right">{{ $order->data->advanced ?? 0 }}</th>
-                                    </tr><tr>
                                         <th class="text-right" colspan="4">Payable</th>
-                                        <th class="text-right">{{ $order->data->shipping_cost + $order->data->subtotal - ($order->data->advanced ?? 0) }}</th>
+                                        <th class="text-right">{{ $total - $advanced - $discount }}</th>
                                     </tr>
                                     </tfoot>
                                 </table>
