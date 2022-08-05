@@ -79,6 +79,8 @@ class CheckoutController extends Controller
 
         $data['email'] && Mail::to($data['email'])->queue(new OrderPlaced($order));
 
+        session()->flash('completed', 'Dear ' . $data['name'] . ', Your Order is Successfully Recieved. Thanks For Your Order.');
+
         return redirect()->route('track-order', [
             'phone' => $data['phone'],
             'order' => optional($order)->getKey(),
