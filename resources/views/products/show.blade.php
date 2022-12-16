@@ -19,18 +19,18 @@
             color: #000;
         }
 
-        #xzoom-default {
-            max-height: 350px;
-            width: 100%;
-        }
+        /*#xzoom-default {*/
+        /*    max-height: 350px;*/
+        /*    width: 100%;*/
+        /*}*/
         .product__actions-item {
             flex: 1;
         }
         @media (max-width: 768px) {
-            #xzoom-default {
-                max-height: 300px;
-                width: 100%;
-            }
+            /*#xzoom-default {*/
+            /*    max-height: 300px;*/
+            /*    width: 100%;*/
+            /*}*/
             .product__actions {
                 justify-content: center;
             }
