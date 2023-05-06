@@ -100,6 +100,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        abort_if(request()->user()->role_id, 'Not Allowed.');
         DB::transaction(function () use ($category) {
             $category->childrens()->delete();
             $category->delete();

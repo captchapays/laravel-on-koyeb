@@ -97,6 +97,7 @@ class BrandController extends Controller
      */
     public function destroy(Brand $brand)
     {
+        abort_if(request()->user()->role_id, 'Not Allowed.');
         $brand->delete();
         return redirect()
             ->action([self::class, 'index'])

@@ -59,6 +59,7 @@ class ImageController extends Controller
      */
     public function destroy(Image $image)
     {
+        abort_if(request()->user()->role_id, 'Not Allowed.');
         if ($image->products->isNotEmpty()) {
             return request()->expectsJson()
                 ? response()->json(['danger' => 'Image Is Used.'])

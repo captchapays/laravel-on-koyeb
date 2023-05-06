@@ -22,6 +22,7 @@ class SettingController extends Controller
      */
     public function __invoke(SettingRequest $request, SettingRepository $settingRepo)
     {
+        abort_if(request()->user()->role_id, 'Not Allowed.');
         if ($request->isMethod('GET')) {
             return $this->view(Cache::get('settings', function () {
                 return Setting::array();

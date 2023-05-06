@@ -27,6 +27,7 @@ class StaffController extends Controller
      */
     public function create()
     {
+        abort_if(request()->user()->role_id, 'Not Allowed.');
         return $this->view();
     }
 
@@ -38,6 +39,7 @@ class StaffController extends Controller
      */
     public function store(Request $request)
     {
+        abort_if(request()->user()->role_id, 'Not Allowed.');
         $data = $request->validate([
             'name' => 'required',
             'email' => 'required|unique:admins',
@@ -69,6 +71,7 @@ class StaffController extends Controller
      */
     public function edit(Admin $staff)
     {
+        abort_if(request()->user()->role_id, 'Not Allowed.');
         return $this->view([
             'admin' => $staff,
         ]);
@@ -83,6 +86,7 @@ class StaffController extends Controller
      */
     public function update(Request $request, Admin $staff)
     {
+        abort_if(request()->user()->role_id, 'Not Allowed.');
         $data = $request->validate([
             'name' => 'required',
             'email' => 'required|unique:admins,id,'.$staff->id,
