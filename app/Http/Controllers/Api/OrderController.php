@@ -51,7 +51,7 @@ class OrderController extends Controller
                 return "<div class='text-nowrap'>" . $row->created_at->format('d-M-Y') . "<br>" . $row->created_at->format('h:i A') . "</div>";
             })
             ->editColumn('price', function ($row) {
-                return $row->data->subtotal + $row->data->shipping_cost;
+                return ($row->data->subtotal ?? 0) + ($row->data->shipping_cost ?? 0);
             })
             ->addColumn('actions', function (Order $order) {
                 return '<div class="d-flex justify-content-center">
