@@ -17,7 +17,7 @@ return [
 
     'orders' => [
         'Pending',
-        'Processing',
+        // 'Processing',
         'bKash Pending',
         'Invoice Pending',
         'Shipping',
@@ -25,6 +25,7 @@ return [
         'Waiting',
         'Cancelled',
         'Returned',
+        'Lost',
     ],
 
     /*
