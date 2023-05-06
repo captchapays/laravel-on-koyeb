@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Admin;
 use App\Order;
 use App\Product;
 use App\Mail\OrderPlaced;
@@ -61,11 +62,22 @@ class CheckoutController extends Controller
                 })->toArray();
 
             $data['products'] = json_encode($products);
+            $oldOrders = Order::select(['id', 'admin_id', 'status'])->where('data->phone', $data['phone'])->get();
+            $adminIds = $oldOrders->pluck('admin_id')->unique()->toArray();
+            $adminQ = Admin::where('role_id', 1)->where('is_active', true)->inRandomOrder();
+            if (count($adminIds) > 0) {
+                $data['admin_id'] = $adminQ->wheretIn('id', $adminIds)->first()->id ?? $adminQ->first()->id ?? null;
+            } else {
+                $data['admin_id'] = $adminQ->first()->id ?? null;
+            }
+
             $data += [
                 'user_id' => optional(auth('user')->user())->id, // If User Logged In
                 'status' => data_get(config('app.orders', []), 0, 'PENDING'), // Default Status
                 // Additional Data
                 'data' => [
+                    'is_repeat'     => $oldOrders->count() > 0,
+                    'is_fraud'      => $oldOrders->where('status', 'Cancelled')->count() > 0,
                     'shipping_area' => $data['shipping'],
                     'shipping_cost' => setting('delivery_charge')->{$data['shipping'] == 'Inside Dhaka' ? 'inside_dhaka' : 'outside_dhaka'} ?? config('services.shipping.'.$data['shipping']),
                     'subtotal'      => $this->getSubtotal($products),

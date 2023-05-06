@@ -28,6 +28,9 @@ class OrderController extends Controller
         $orders = Order::when($request->has('status'), function ($query) {
             $query->where('status', 'like', \request('status'));
         })
+            ->when($request->role_id == 1, function ($query) {
+                $query->where('admin_id', request('admin_id'));
+            })
             ->when($request->has(['start_d', 'end_d']), function ($query) use ($_start, $_end) {
                 $query->whereBetween(Str::of(\request('status'))->lower()->is('shipping') ? 'shipped_at' : 'created_at', [
                     $_start->startOfDay()->toDateTimeString(),
@@ -41,6 +44,15 @@ class OrderController extends Controller
 
         return DataTables::of($orders)
             ->addIndexColumn()
+            ->setRowClass(function ($row) {
+                if ($row->data->is_fraud ?? false) {
+                    return 'bg-warning';
+                }
+                if ($row->data->is_repeat ?? false) {
+                    return 'bg-info';
+                }
+                return '';
+            })
             ->addColumn('checkbox', function ($row) {
                 return '<input type="checkbox" name="order_id[]" value="' . $row->id . '">';
             })
