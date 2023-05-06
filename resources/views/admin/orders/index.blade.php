@@ -29,12 +29,33 @@
     <div class="col-sm-12">
         <div class="orders-table">
             <div class="card rounded-0 shadow-sm">
-                <div class="card-header p-3"><strong>All Orders</strong></div>
+                <div class="card-header p-3">
+                    <strong>All Orders</strong>
+                    <div class="row d-none">
+                        <div class="col-auto">
+                            <select name="status" id="status" class="form-control form-control-sm">
+                                <option value="">Change Status</option>
+                                @foreach(config('app.orders', []) as $status)
+                                <option value="{{ $status }}">{{ $status }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col">
+                            <button type="button" onclick="changeStatus()">Update</button>
+                        </div>
+                        <div class="col-auto">
+                            <a href="" id="invoice" class="btn btn-sm btn-primary float-right">Invoice</a>
+                        </div>
+                    </div>
+                </div>
                 <div class="card-body p-3">
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-hover datatable" style="width: 100%;">
                             <thead>
                                 <tr>
+                                    <th>
+                                        <input type="checkbox" name="check_all">
+                                    </th>
                                     <th width="80">ID</th>
                                     <th style="min-width: 80px;">DateTime</th>
                                     <th style="min-width: 120px;">Name</th>
@@ -63,6 +84,26 @@
 
 @push('scripts')
 <script>
+    var checked_count = 0;
+    function updateBulkMenu() {
+        var total = $('[name="order_id[]"]').length;
+        checked_count = $('[name="order_id[]"]:checked').length;
+        $('[name="check_all"]').prop('checked', checked_count === total);
+
+        if (checked_count > 0) {
+            $('.card-header > .row').removeClass('d-none');
+            $('.card-header > strong').addClass('d-none');
+        } else {
+            $('.card-header > .row').addClass('d-none');
+            $('.card-header > strong').removeClass('d-none');
+        }
+    }
+    $('[name="check_all"]').on('change', function () {
+        var checked = $(this).prop('checked');
+        $('[name="order_id[]"]').prop('checked', checked);
+        updateBulkMenu();
+    });
+
     var table = $('.datatable').DataTable({
         search: [
             {
@@ -106,6 +147,7 @@
         serverSide: true,
         ajax: "{!! route('api.orders', request()->query()) !!}",
         columns: [
+            { data: 'checkbox', name: 'checkbox', sortable: false, searchable: false},
             { data: 'id', name: 'id' },
             { data: 'created_at', name: 'created_at' },
             { data: 'name', name: 'name' },
@@ -146,6 +188,29 @@
         // pageLength: 1,
     });
 
+    setInterval(() => {
+        $(document).find('[name="order_id[]"]').off('change', updateBulkMenu);
+        $(document).find('[name="order_id[]"]').on('change', updateBulkMenu);
+    }, 500);
+
+    function changeStatus() {
+        $.post({
+            url: '{{ route('admin.orders.status') }}',
+            data: {
+                _token: '{{ csrf_token() }}',
+                order_id: $('[name="order_id[]"]:checked').map(function () {
+                    return $(this).val();
+                }).get(),
+                status: $('[name="status"]').val(),
+            },
+            success: function (response) {
+                $('[name="order_id[]"]:checked').prop('checked', false);
+                $('[name="check_all"]').prop('checked', false);
+                updateBulkMenu();
+                table.draw();
+            }
+        });
+    }
 
     // $('.datatable thead tr').clone(true).appendTo( '.datatable thead' );
     // $('.datatable thead tr th').each( function (i) {

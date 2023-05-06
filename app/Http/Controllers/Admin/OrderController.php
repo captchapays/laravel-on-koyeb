@@ -75,6 +75,22 @@ class OrderController extends Controller
         return redirect(route('admin.orders.show', $order))->withSuccess('Order Has Been Updated.');
     }
 
+    public function status(Request $request)
+    {
+        $request->validate([
+            'status' => 'required',
+            'order_id' => 'required|array',
+        ]);
+
+        $data['status'] = $request->status;
+        if ($request->status == 'Shipping') {
+            $data['shipped_at'] = now()->toDateTimeString();
+        }
+        Order::whereIn('id', $request->order_id)->update($data);
+
+        return redirect()->back()->withSuccess('Order Status Has Been Updated.');
+    }
+
     public function addProduct(Request $request, Order $order)
     {
         if (!$product = Product::find($request->id_or_sku)) {
