@@ -44,7 +44,7 @@
                             <button type="button" onclick="changeStatus()">Update</button>
                         </div>
                         <div class="col-auto">
-                            <a href="" id="invoice" class="btn btn-sm btn-primary float-right">Invoice</a>
+                            <button onclick="printInvoice()" id="invoice" class="btn btn-sm btn-primary float-right">Invoice</button>
                         </div>
                     </div>
                 </div>
@@ -145,7 +145,7 @@
         ],
         processing: true,
         serverSide: true,
-        ajax: "{!! route('api.orders', request()->query()) !!}",
+        ajax: "{!! route('api.orders', request()->query() + ['admin_id' => request()->user()->id, 'role_id' => request()->user()->role_id]) !!}",
         columns: [
             { data: 'checkbox', name: 'checkbox', sortable: false, searchable: false},
             { data: 'id', name: 'id' },
@@ -210,6 +210,12 @@
                 table.draw();
             }
         });
+    }
+
+    function printInvoice() {
+        window.open('{{ route('admin.orders.invoices') }}?order_id=' + $('[name="order_id[]"]:checked').map(function () {
+            return $(this).val();
+        }).get().join(','), '_blank');
     }
 
     // $('.datatable thead tr').clone(true).appendTo( '.datatable thead' );
