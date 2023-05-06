@@ -33,6 +33,7 @@ Route::group(['namespace' => 'Admin', 'as' => 'admin.'], function() {
         Route::patch('/orders/{order}/add-product', 'OrderController@addProduct')->name('orders.add-product');
         Route::patch('/orders/{order}/update-quantity', 'OrderController@updateQuantity')->name('orders.update-quantity');
         Route::resources([
+            'staffs'       => 'StaffController',
             'slides'        => 'SlideController',
             'categories'    => 'CategoryController',
             'brands'        => 'BrandController',
