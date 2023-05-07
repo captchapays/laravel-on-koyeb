@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use App\Product;
@@ -69,12 +70,33 @@ class OrderController extends Controller
             'data.advanced' => 'required|integer',
         ]);
 
+        $data['status_at'] = now()->toDateTimeString();
         if ($order->status != 'Shipping' && $data['status'] == 'Shipping') {
             $order->forceFill(['shipped_at' => now()->toDateTimeString()]);
         }
 
         $order->update($data);
         return redirect(route('admin.orders.show', $order))->withSuccess('Order Has Been Updated.');
+    }
+
+    public function reports(Request $request)
+    {
+        $orders = Order::select('id', 'products');
+        if ($request->status) {
+            $orders->where('status', $request->status);
+        }
+        if ($request->date) {
+            $orders->whereBetween('status_at', [Carbon::parse($request->date)->startOfDay(), Carbon::parse($request->date)->endOfDay()]);
+        } else {
+            $orders->whereBetween('status_at', [now()->startOfDay(), now()->endOfDay()]);
+        }
+        if ($request->staff_id) {
+            $orders->where('admin_id', $request->staff_id);
+        }
+
+        return view('admin.orders.reports', [
+            'products' => $orders->get()->pluck('products')->flatten()->groupBy('name')->map->count()->toArray(),
+        ]);
     }
 
     public function invoices(Request $request)
@@ -96,6 +118,7 @@ class OrderController extends Controller
         ]);
 
         $data['status'] = $request->status;
+        $data['status_at'] = now()->toDateTimeString();
         if ($request->status == 'Shipping') {
             $data['shipped_at'] = now()->toDateTimeString();
         }
