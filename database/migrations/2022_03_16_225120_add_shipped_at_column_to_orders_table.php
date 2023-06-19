@@ -15,9 +15,7 @@ class AddShippedAtColumnToOrdersTable extends Migration
     {
         Schema::table('orders', function (Blueprint $table) {
             $table->timestamp('shipped_at')
-                ->after('updated_at')
-                ->nullable()
-                ->default(null);
+                ->after('updated_at');
         });
     }
 
