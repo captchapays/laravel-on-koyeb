@@ -79,7 +79,7 @@
     "repositories": [
         {
             "type": "path",
-            "url": "packages/**/*"
+            "url": "packages/hotash/laravel-multi-ui"
         }
     ]
 }
